@@ -72,10 +72,10 @@ spec:
     periodSeconds: 2
   env:
     - name: COUCHDB_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: customer-couchdb-couchdb
-            key: adminPassword
+      valueFrom:
+        secretKeyRef:
+          name: customer-couchdb-couchdb
+          key: adminPassword
     - name: COUCHDB_USERNAME
       valueFrom:
         secretKeyRef:
