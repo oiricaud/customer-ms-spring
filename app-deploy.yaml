@@ -81,6 +81,11 @@ spec:
         secretKeyRef:
           name: customer-couchdb-couchdb
           key: adminUsername
+    - name: COUCHDB_COOKIE
+      valueFrom:
+        secretKeyRef:
+          name: customer-couchdb-couchdb
+          key: cookieAuthSecret
     - name: COUCHDB_PROTOCOL
       value: https
     - name: COUCHDB_HOST
