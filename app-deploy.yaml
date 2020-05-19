@@ -5,17 +5,17 @@ metadata:
     architecture: x86_64
     authoritative-source-url: registry.access.redhat.com
     build-date: 2020-03-31T14:54:13.907559
-    commit.image.appsody.dev/date: Fri May 15 11:59:24 2020 -0500
-    commit.image.appsody.dev/message: Merge remote-tracking branch 'upstream/master'
+    commit.image.appsody.dev/date: Tue May 19 11:27:50 2020 -0500
+    commit.image.appsody.dev/message: Merge branch 'master' of https://github.com/oiricaud/customer-ms-spring
     commit.stack.appsody.dev/contextDir: /incubator/java-spring-boot2
     commit.stack.appsody.dev/date: Thu May 14 09:37:35 2020 +0100
     commit.stack.appsody.dev/message: 'Merge pull request #340 from groeges/release-0.9-codewind'
     description: This image is the Kabanero development container for the java-spring-boot2
       stack
     distribution-scope: public
-    image.opencontainers.org/created: "2020-05-19T11:20:59-05:00"
+    image.opencontainers.org/created: "2020-05-19T11:28:40-05:00"
     image.opencontainers.org/documentation: https://github.com/oiricaud/customer-ms-spring
-    image.opencontainers.org/revision: 034a99bcf11e4f32d255bb65e64e271bac4ff1c8-modified
+    image.opencontainers.org/revision: 33bfe17b53e86fe38c333c1c0a24628f05ebc274
     image.opencontainers.org/source: https://github.com/oiricaud/customer-ms-spring/tree/master
     image.opencontainers.org/url: https://github.com/oiricaud/customer-ms-spring
     k8s.io/description: The Universal Base Image is designed and engineered to be
@@ -56,12 +56,12 @@ metadata:
     image.opencontainers.org/title: customer-api
     stack.appsody.dev/id: java-spring-boot2
     stack.appsody.dev/version: 0.3.29
-  name: customer-api
+  name: customer-ms-spring
+  namespace: storefront
+
 spec:
   applicationImage: dev.local/customer-api
   createKnativeService: false
-  targetNamespaces:
-    - storefront
   expose: true
   livenessProbe:
     failureThreshold: 12
@@ -90,4 +90,6 @@ spec:
     port: 8080
     type: NodePort
   stack: java-spring-boot2
+  targetNamespaces:
+  - storefront
   version: 1.0.0
