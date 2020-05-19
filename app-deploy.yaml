@@ -70,6 +70,27 @@ spec:
       port: 8080
     initialDelaySeconds: 5
     periodSeconds: 2
+  env:
+    - name: COUCHDB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: customer-couchdb-couchdb
+            key: adminPassword
+    - name: COUCHDB_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: customer-couchdb-couchdb
+          key: adminUsername
+    - name: COUCHDB_PROTOCOL
+      value: https
+    - name: COUCHDB_HOST
+      value: 172.30.7.46
+    - name: COUCHDB_PORT
+      value: 5984
+    - name: COUCHDB_DATABASE
+      value: customers
+    - name: COUCHDB_HS256_KEY
+      value: 'E6526VJkKYhyTFRFMC0pTECpHcZ7TGcq8pKsVVgz9KtESVpheEO284qKzfzg8HpWNBPeHOxNGlyudUHi6i8tFQJXC8PiI48RUpMh23vPDLGD35pCM0417gf58z5xlmRNii56fwRCmIhhV7hDsm3KO2jRv4EBVz7HrYbzFeqI45CaStkMYNipzSm2duuer7zRdMjEKIdqsby0JfpQpykHmC5L6hxkX0BT7XWqztTr6xHCwqst26O0g8r7bXSYjp4a'
   monitoring:
     endpoints:
     - path: /actuator/prometheus
