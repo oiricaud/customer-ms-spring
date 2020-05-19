@@ -87,7 +87,7 @@ spec:
           name: customer-couchdb-couchdb
           key: cookieAuthSecret
     - name: COUCHDB_PROTOCOL
-      value: https
+      value: http
     - name: COUCHDB_HOST
       value: 172.30.7.46
     - name: COUCHDB_PORT
