@@ -167,7 +167,7 @@ Where:
 * `${TEST_USER}` is the user to create, i.e. `foo`.
 
 ```bash
-curl -s -X GET "http://${CUSTOMER_HOST}:${CUSTOMER_PORT}/customer/search?username=${TEST_USER}" -H 'Content-type: application/json' -H "Authorization: Bearer ${jwt}"
+curl -s -X GET "http://${CUSTOMER_HOST}:${CUSTOMER_PORT}/customer/search?username=${TEST_USER}" -H 'Content-type: application/json' -H "${jwt}"
 
 [{"username":"foo","password":"bar","firstName":"foo","lastName":"bar","email":"foo@bar.com","imageUrl":null,"customerId":"7145e43859764b3e8abc76784f1eb36a"}]
 ```
@@ -261,17 +261,10 @@ In this section you will run the Spring Boot application on your local workstati
 
 Once CouchDB is ready, we can run the Spring Boot Customer application locally as follows:
 
-1. Open [`src/main/resources/application.yml`](src/main/resources/application.yml) file, enter the following values for the fields under `spring.application.cloudant`, and save the file:
-    * **protocol:** http
-    * **username:** admin
-    * **password:** passw0rd
-    * **host:** 127.0.0.1
-    * **port:** 5985
-    * **database:** customers
 
-2. Build and run the application:
+1. Build and run the application:
 ```bash
-appsody run
+appsody run --docker-options "-e COUCHDB_PORT=5985 -e COUCHDB_HOST=host.docker.internal -e COUCHDB_PROTOCOL=http -e COUCHDB_USERNAME=admin -e COUCHDB_PASSWORD=passw0rd -e COUCHDB_DATABASE=customers -e HS256_KEY=E6526VJkKYhyTFRFMC0pTECpHcZ7TGcq8pKsVVgz9KtESVpheEO284qKzfzg8HpWNBPeHOxNGlyudUHi6i8tFQJXC8PiI48RUpMh23vPDLGD35pCM0417gf58z5xlmRNii56fwRCmIhhV7hDsm3KO2jRv4EBVz7HrYbzFeqI45CaStkMYNipzSm2duuer7zRdMjEKIdqsby0JfpQpykHmC5L6hxkX0BT7XWqztTr6xHCwqst26O0g8r7bXSYjp4a"
 ```
 
 3. Validate. You should be able to do API calls via swagger by visiting

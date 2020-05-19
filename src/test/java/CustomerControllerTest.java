@@ -1,6 +1,10 @@
 import application.model.Customer;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -10,6 +14,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import java.net.URI;
@@ -22,15 +28,16 @@ import static org.junit.Assert.assertEquals;
  * The purpose of this class is to test the @see CustomerController class rest end points.
  * @author Oscar I. Ricaud
  */
+@FixMethodOrder(MethodSorters.JVM)
 public class CustomerControllerTest {
     RestTemplate restTemplate = new RestTemplate();
     String baseUrl = "http://localhost:8080" + "/customer";
-    HttpHeaders headers = new HttpHeaders();
-    Customer newCustomer = new Customer("123", null, "kimmy",
-            "passw0rd", "perla", "hernandez", "helloworld@gmail.com",
+    private HttpHeaders headers = new HttpHeaders();
+    private Customer newCustomer = new Customer("9875", null, "yooyo",
+            "passw0rd", "josh", "hernandez", "helloworld@gmail.com",
             "test.png");
 
-    SecurityContext ctx = SecurityContextHolder.createEmptyContext();
+    private SecurityContext ctx = SecurityContextHolder.createEmptyContext();
 
     @Before
     public void constructor() {
@@ -120,12 +127,14 @@ public class CustomerControllerTest {
      */
     @Test
     public void searchCustomerByUsername() throws URISyntaxException {
-        URI uri = new URI(baseUrl + "/search");
+        URI uri = new URI(baseUrl + "/search-by-username/" + newCustomer.getUsername());
+
         System.out.println("newCustomer.getUsername()" + newCustomer.getUsername());
 
         HttpEntity<String> request = new HttpEntity<String>(newCustomer.getUsername(), headers);
         try {
-            ResponseEntity<String> response = restTemplate.postForEntity(uri, request, String.class);
+
+            ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
             int responseCode = response.getStatusCodeValue();
             assertEquals(200, responseCode);
         } catch (HttpClientErrorException e) { // Catch error when adding duplicate customer
@@ -185,5 +194,4 @@ public class CustomerControllerTest {
         System.out.println("customers list " + response);
         assertEquals(200, response.getStatusCodeValue());
     }
-
 }
