@@ -68,7 +68,7 @@ spec:
     httpGet:
       path: /actuator/liveness
       port: 8080
-    initialDelaySeconds: 5
+    initialDelaySeconds: 30
     periodSeconds: 2
   env:
     - name: COUCHDB_PASSWORD
