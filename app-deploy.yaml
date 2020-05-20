@@ -5,17 +5,17 @@ metadata:
     architecture: x86_64
     authoritative-source-url: registry.access.redhat.com
     build-date: 2020-03-31T14:54:13.907559
-    commit.image.appsody.dev/date: Wed May 20 08:42:21 2020 -0500
-    commit.image.appsody.dev/message: added spring boot starter web dependency
+    commit.image.appsody.dev/date: Wed May 20 14:03:39 2020 -0500
+    commit.image.appsody.dev/message: changed the couchdb_host value
     commit.stack.appsody.dev/contextDir: /incubator/java-spring-boot2
     commit.stack.appsody.dev/date: Thu May 14 09:37:35 2020 +0100
     commit.stack.appsody.dev/message: 'Merge pull request #340 from groeges/release-0.9-codewind'
     description: This image is the Kabanero development container for the java-spring-boot2
       stack
     distribution-scope: public
-    image.opencontainers.org/created: "2020-05-20T08:57:47-05:00"
+    image.opencontainers.org/created: "2020-05-20T14:04:37-05:00"
     image.opencontainers.org/documentation: https://github.com/oiricaud/customer-ms-spring
-    image.opencontainers.org/revision: a27f4ff916237997842226bb83b005a40ddf6bf5
+    image.opencontainers.org/revision: 01193a80690ccffb416cb1d025a63d404c135597-modified
     image.opencontainers.org/source: https://github.com/oiricaud/customer-ms-spring/tree/master
     image.opencontainers.org/url: https://github.com/oiricaud/customer-ms-spring
     k8s.io/description: The Universal Base Image is designed and engineered to be
@@ -61,27 +61,6 @@ metadata:
 spec:
   applicationImage: docker.io/ibmcase/customer-ms-spring
   createKnativeService: false
-  expose: true
-  livenessProbe:
-    failureThreshold: 12
-    httpGet:
-      path: /micro/actuator/liveness
-      port: 8080-tcp
-    initialDelaySeconds: 10
-    periodSeconds: 10
-  monitoring:
-    endpoints:
-    - path: /micro/actuator/prometheus
-    labels:
-      k8s-app: customer-api
-  readinessProbe:
-    failureThreshold: 12
-    httpGet:
-      path: /micro/actuator/health
-      port: 8080-tcp
-    initialDelaySeconds: 5
-    periodSeconds: 10
-    timeoutSeconds: 1
   env:
   - name: COUCHDB_PASSWORD
     valueFrom:
@@ -108,6 +87,27 @@ spec:
     value: customers
   - name: COUCHDB_HS256_KEY
     value: E6526VJkKYhyTFRFMC0pTECpHcZ7TGcq8pKsVVgz9KtESVpheEO284qKzfzg8HpWNBPeHOxNGlyudUHi6i8tFQJXC8PiI48RUpMh23vPDLGD35pCM0417gf58z5xlmRNii56fwRCmIhhV7hDsm3KO2jRv4EBVz7HrYbzFeqI45CaStkMYNipzSm2duuer7zRdMjEKIdqsby0JfpQpykHmC5L6hxkX0BT7XWqztTr6xHCwqst26O0g8r7bXSYjp4a
+  expose: true
+  livenessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /micro/actuator/liveness
+      port: 8080-tcp
+    initialDelaySeconds: 10
+    periodSeconds: 10
+  monitoring:
+    endpoints:
+    - path: /micro/actuator/prometheus
+    labels:
+      k8s-app: customer-api
+  readinessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /micro/actuator/health
+      port: 8080-tcp
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 1
   service:
     annotations:
       prometheus.io/path: /micro/actuator/prometheus
