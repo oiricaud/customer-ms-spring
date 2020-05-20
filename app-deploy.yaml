@@ -82,7 +82,7 @@ spec:
       initialDelaySeconds: 5
       periodSeconds: 10
       timeoutSeconds: 1
-  env:
+    env:
     - name: COUCHDB_PASSWORD
       valueFrom:
         secretKeyRef:
@@ -108,11 +108,11 @@ spec:
       value: customers
     - name: COUCHDB_HS256_KEY
       value: E6526VJkKYhyTFRFMC0pTECpHcZ7TGcq8pKsVVgz9KtESVpheEO284qKzfzg8HpWNBPeHOxNGlyudUHi6i8tFQJXC8PiI48RUpMh23vPDLGD35pCM0417gf58z5xlmRNii56fwRCmIhhV7hDsm3KO2jRv4EBVz7HrYbzFeqI45CaStkMYNipzSm2duuer7zRdMjEKIdqsby0JfpQpykHmC5L6hxkX0BT7XWqztTr6xHCwqst26O0g8r7bXSYjp4a
-  service:
-    annotations:
-      prometheus.io/path: micro/actuator/prometheus
-      prometheus.io/scrape: "true"
-    port: 8080
-    type: NodePort
-  stack: java-spring-boot2
-  version: 1.0.0
+    service:
+      annotations:
+        prometheus.io/path: micro/actuator/prometheus
+        prometheus.io/scrape: "true"
+      port: 8080
+      type: NodePort
+    stack: java-spring-boot2
+    version: 1.0.0
