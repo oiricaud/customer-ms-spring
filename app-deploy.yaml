@@ -94,7 +94,7 @@ spec:
       path: micro/actuator/liveness
       port: 8080
     initialDelaySeconds: 30
-    periodSeconds: 2
+    periodSeconds: 10
   monitoring:
     endpoints:
     - path: micro/actuator/prometheus
@@ -106,7 +106,7 @@ spec:
       path: micro/actuator/health
       port: 8080
     initialDelaySeconds: 5
-    periodSeconds: 2
+    periodSeconds: 10
     timeoutSeconds: 1
   service:
     annotations:
