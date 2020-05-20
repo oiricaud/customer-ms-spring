@@ -282,4 +282,3 @@ To see the Customer app working in a more complex microservices use case, checko
 ## Contributing
 If you would like to contribute to this repository, please fork it, submit a PR, and assign as reviewers any of the GitHub users listed here:
 git clone https://github.com/ibm-garage-ref-storefront/customer-ms-spring
-
