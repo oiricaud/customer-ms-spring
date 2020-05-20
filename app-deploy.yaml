@@ -101,7 +101,7 @@ spec:
   - name: COUCHDB_PROTOCOL
     value: http
   - name: COUCHDB_HOST
-    value: 172.30.7.46
+    value: customer-couchdb-svc-couchdb
   - name: COUCHDB_PORT
     value: 5984
   - name: COUCHDB_DATABASE
