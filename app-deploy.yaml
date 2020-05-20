@@ -69,19 +69,19 @@ spec:
       port: 8080
     initialDelaySeconds: 10
     periodSeconds: 10
-    monitoring:
-      endpoints:
-      - path: /micro/actuator/prometheus
-      labels:
-        k8s-app: customer-api
-    readinessProbe:
-      failureThreshold: 12
-      httpGet:
-        path: /micro/actuator/health
-        port: 8080
-      initialDelaySeconds: 5
-      periodSeconds: 10
-      timeoutSeconds: 1
+  monitoring:
+    endpoints:
+    - path: /micro/actuator/prometheus
+    labels:
+      k8s-app: customer-api
+  readinessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /micro/actuator/health
+      port: 8080
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 1
   env:
   - name: COUCHDB_PASSWORD
     valueFrom:
