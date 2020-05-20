@@ -66,7 +66,7 @@ spec:
     failureThreshold: 12
     httpGet:
       path: /micro/actuator/liveness
-      port: 8080
+      port: 8080-tcp
     initialDelaySeconds: 10
     periodSeconds: 10
   monitoring:
@@ -78,7 +78,7 @@ spec:
     failureThreshold: 12
     httpGet:
       path: /micro/actuator/health
-      port: 8080
+      port: 8080-tcp
     initialDelaySeconds: 5
     periodSeconds: 10
     timeoutSeconds: 1
@@ -101,7 +101,7 @@ spec:
   - name: COUCHDB_PROTOCOL
     value: http
   - name: COUCHDB_HOST
-    value: customer-couchdb-svc-couchdb
+    value: 172.30.7.46
   - name: COUCHDB_PORT
     value: 5984
   - name: COUCHDB_DATABASE
