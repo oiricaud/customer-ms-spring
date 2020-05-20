@@ -59,7 +59,7 @@ metadata:
   name: customer-ms-spring
   namespace: storefront
 spec:
-  applicationImage: dev.local/customer-api
+  applicationImage: docker.io/ibmcase/customer-ms-spring
   createKnativeService: false
   env:
   - name: COUCHDB_PASSWORD
