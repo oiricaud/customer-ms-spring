@@ -29,7 +29,7 @@ public class CloudantProperties {
     private String username;
     private String password;
     private String host;
-    private int port;
+    private String port;
     private String database;
     private String sharedSecret;
     private Database cloudantDatabase;
