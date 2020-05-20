@@ -91,9 +91,9 @@ spec:
   livenessProbe:
     failureThreshold: 12
     httpGet:
-      path: micro/actuator/liveness
-      port: 8080
-    initialDelaySeconds: 30
+      - path: micro/actuator/liveness
+        port: 8080
+    initialDelaySeconds: 10
     periodSeconds: 10
   monitoring:
     endpoints:
