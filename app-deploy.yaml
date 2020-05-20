@@ -5,17 +5,17 @@ metadata:
     architecture: x86_64
     authoritative-source-url: registry.access.redhat.com
     build-date: 2020-03-31T14:54:13.907559
-    commit.image.appsody.dev/date: Tue May 19 11:27:50 2020 -0500
-    commit.image.appsody.dev/message: Merge branch 'master' of https://github.com/oiricaud/customer-ms-spring
+    commit.image.appsody.dev/date: Wed May 20 08:42:21 2020 -0500
+    commit.image.appsody.dev/message: added spring boot starter web dependency
     commit.stack.appsody.dev/contextDir: /incubator/java-spring-boot2
     commit.stack.appsody.dev/date: Thu May 14 09:37:35 2020 +0100
     commit.stack.appsody.dev/message: 'Merge pull request #340 from groeges/release-0.9-codewind'
     description: This image is the Kabanero development container for the java-spring-boot2
       stack
     distribution-scope: public
-    image.opencontainers.org/created: "2020-05-19T11:28:40-05:00"
+    image.opencontainers.org/created: "2020-05-20T08:57:47-05:00"
     image.opencontainers.org/documentation: https://github.com/oiricaud/customer-ms-spring
-    image.opencontainers.org/revision: 33bfe17b53e86fe38c333c1c0a24628f05ebc274
+    image.opencontainers.org/revision: a27f4ff916237997842226bb83b005a40ddf6bf5
     image.opencontainers.org/source: https://github.com/oiricaud/customer-ms-spring/tree/master
     image.opencontainers.org/url: https://github.com/oiricaud/customer-ms-spring
     k8s.io/description: The Universal Base Image is designed and engineered to be
@@ -58,10 +58,35 @@ metadata:
     stack.appsody.dev/version: 0.3.29
   name: customer-ms-spring
   namespace: storefront
-
 spec:
   applicationImage: dev.local/customer-api
   createKnativeService: false
+  env:
+  - name: COUCHDB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        key: adminPassword
+        name: customer-couchdb-couchdb
+  - name: COUCHDB_USERNAME
+    valueFrom:
+      secretKeyRef:
+        key: adminUsername
+        name: customer-couchdb-couchdb
+  - name: COUCHDB_COOKIE
+    valueFrom:
+      secretKeyRef:
+        key: cookieAuthSecret
+        name: customer-couchdb-couchdb
+  - name: COUCHDB_PROTOCOL
+    value: http
+  - name: COUCHDB_HOST
+    value: 172.30.7.46
+  - name: COUCHDB_PORT
+    value: 5984
+  - name: COUCHDB_DATABASE
+    value: customers
+  - name: COUCHDB_HS256_KEY
+    value: E6526VJkKYhyTFRFMC0pTECpHcZ7TGcq8pKsVVgz9KtESVpheEO284qKzfzg8HpWNBPeHOxNGlyudUHi6i8tFQJXC8PiI48RUpMh23vPDLGD35pCM0417gf58z5xlmRNii56fwRCmIhhV7hDsm3KO2jRv4EBVz7HrYbzFeqI45CaStkMYNipzSm2duuer7zRdMjEKIdqsby0JfpQpykHmC5L6hxkX0BT7XWqztTr6xHCwqst26O0g8r7bXSYjp4a
   expose: true
   livenessProbe:
     failureThreshold: 12
@@ -70,32 +95,6 @@ spec:
       port: 8080
     initialDelaySeconds: 30
     periodSeconds: 2
-  env:
-    - name: COUCHDB_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: customer-couchdb-couchdb
-          key: adminPassword
-    - name: COUCHDB_USERNAME
-      valueFrom:
-        secretKeyRef:
-          name: customer-couchdb-couchdb
-          key: adminUsername
-    - name: COUCHDB_COOKIE
-      valueFrom:
-        secretKeyRef:
-          name: customer-couchdb-couchdb
-          key: cookieAuthSecret
-    - name: COUCHDB_PROTOCOL
-      value: http
-    - name: COUCHDB_HOST
-      value: 172.30.7.46
-    - name: COUCHDB_PORT
-      value: 5984
-    - name: COUCHDB_DATABASE
-      value: customers
-    - name: COUCHDB_HS256_KEY
-      value: 'E6526VJkKYhyTFRFMC0pTECpHcZ7TGcq8pKsVVgz9KtESVpheEO284qKzfzg8HpWNBPeHOxNGlyudUHi6i8tFQJXC8PiI48RUpMh23vPDLGD35pCM0417gf58z5xlmRNii56fwRCmIhhV7hDsm3KO2jRv4EBVz7HrYbzFeqI45CaStkMYNipzSm2duuer7zRdMjEKIdqsby0JfpQpykHmC5L6hxkX0BT7XWqztTr6xHCwqst26O0g8r7bXSYjp4a'
   monitoring:
     endpoints:
     - path: micro/actuator/prometheus
