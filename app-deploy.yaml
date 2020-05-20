@@ -82,37 +82,37 @@ spec:
       initialDelaySeconds: 5
       periodSeconds: 10
       timeoutSeconds: 1
-    env:
-    - name: COUCHDB_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          key: adminPassword
-          name: customer-couchdb-couchdb
-    - name: COUCHDB_USERNAME
-      valueFrom:
-        secretKeyRef:
-          key: adminUsername
-          name: customer-couchdb-couchdb
-    - name: COUCHDB_COOKIE
-      valueFrom:
-        secretKeyRef:
-          key: cookieAuthSecret
-          name: customer-couchdb-couchdb
-    - name: COUCHDB_PROTOCOL
-      value: http
-    - name: COUCHDB_HOST
-      value: 172.30.7.46
-    - name: COUCHDB_PORT
-      value: 5984
-    - name: COUCHDB_DATABASE
-      value: customers
-    - name: COUCHDB_HS256_KEY
-      value: E6526VJkKYhyTFRFMC0pTECpHcZ7TGcq8pKsVVgz9KtESVpheEO284qKzfzg8HpWNBPeHOxNGlyudUHi6i8tFQJXC8PiI48RUpMh23vPDLGD35pCM0417gf58z5xlmRNii56fwRCmIhhV7hDsm3KO2jRv4EBVz7HrYbzFeqI45CaStkMYNipzSm2duuer7zRdMjEKIdqsby0JfpQpykHmC5L6hxkX0BT7XWqztTr6xHCwqst26O0g8r7bXSYjp4a
-    service:
-      annotations:
-        prometheus.io/path: /micro/actuator/prometheus
-        prometheus.io/scrape: "true"
-      port: 8080
-      type: NodePort
-    stack: java-spring-boot2
-    version: 1.0.0
+  env:
+  - name: COUCHDB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        key: adminPassword
+        name: customer-couchdb-couchdb
+  - name: COUCHDB_USERNAME
+    valueFrom:
+      secretKeyRef:
+        key: adminUsername
+        name: customer-couchdb-couchdb
+  - name: COUCHDB_COOKIE
+    valueFrom:
+      secretKeyRef:
+        key: cookieAuthSecret
+        name: customer-couchdb-couchdb
+  - name: COUCHDB_PROTOCOL
+    value: http
+  - name: COUCHDB_HOST
+    value: 172.30.7.46
+  - name: COUCHDB_PORT
+    value: 5984
+  - name: COUCHDB_DATABASE
+    value: customers
+  - name: COUCHDB_HS256_KEY
+    value: E6526VJkKYhyTFRFMC0pTECpHcZ7TGcq8pKsVVgz9KtESVpheEO284qKzfzg8HpWNBPeHOxNGlyudUHi6i8tFQJXC8PiI48RUpMh23vPDLGD35pCM0417gf58z5xlmRNii56fwRCmIhhV7hDsm3KO2jRv4EBVz7HrYbzFeqI45CaStkMYNipzSm2duuer7zRdMjEKIdqsby0JfpQpykHmC5L6hxkX0BT7XWqztTr6xHCwqst26O0g8r7bXSYjp4a
+  service:
+    annotations:
+      prometheus.io/path: /micro/actuator/prometheus
+      prometheus.io/scrape: "true"
+    port: 8080
+    type: NodePort
+  stack: java-spring-boot2
+  version: 1.0.0
