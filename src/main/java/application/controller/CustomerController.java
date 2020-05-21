@@ -142,8 +142,9 @@ public class CustomerController {
      * @return customer by username
      */
     @ApiOperation(value = "Search a customer by username", response = Customer.class)
-    @RequestMapping(path = "/search-by-username/{username}", method = RequestMethod.GET)
+    @RequestMapping(path = "/search/{username}", method = RequestMethod.GET)
     protected ResponseEntity<?> searchCustomerByUsername(@RequestHeader Map<String, String> headers, @PathVariable("username") String username) {
+        System.out.println("searching customer by username " + username);
         try {
             if (username == null) {
                 return ResponseEntity.badRequest().body("Missing username");
@@ -159,7 +160,7 @@ public class CustomerController {
      * @return customer by username
      */
     @ApiOperation(value = "Search a customer by id", response = Customer.class)
-    @RequestMapping(value = "/search/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     protected @ResponseBody ResponseEntity<?> searchCustomerById(@PathVariable("id") String id) {
         try {
             if (id == null) {
