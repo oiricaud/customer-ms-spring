@@ -1,4 +1,4 @@
-package application.controller;
+package application;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
