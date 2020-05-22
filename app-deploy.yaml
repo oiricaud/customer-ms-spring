@@ -57,7 +57,7 @@ metadata:
     image.opencontainers.org/title: customer-ms-spring
     stack.appsody.dev/id: java-spring-boot2
     stack.appsody.dev/version: 0.3.29
-  name: or-customer-ms-spring
+  name: customer-ms-spring
   namespace: storefront
 spec:
   applicationImage: docker.io/ibmcase/customer-ms-spring
