@@ -31,9 +31,9 @@ import static org.junit.Assert.assertEquals;
 @FixMethodOrder(MethodSorters.JVM)
 public class CustomerControllerTest {
     RestTemplate restTemplate = new RestTemplate();
-    String baseUrl = "http://localhost:8080" + "/customer";
+    String baseUrl = "http://localhost:8080" + "/micro/customer";
     private HttpHeaders headers = new HttpHeaders();
-    private Customer newCustomer = new Customer("9875", null, "yooyo",
+    private Customer newCustomer = new Customer("1994", null, "yooyo",
             "passw0rd", "josh", "hernandez", "helloworld@gmail.com",
             "test.png");
 
@@ -127,7 +127,7 @@ public class CustomerControllerTest {
      */
     @Test
     public void searchCustomerByUsername() throws URISyntaxException {
-        URI uri = new URI(baseUrl + "/search-by-username/" + newCustomer.getUsername());
+        URI uri = new URI(baseUrl + "/search/" + newCustomer.getUsername());
 
         System.out.println("newCustomer.getUsername()" + newCustomer.getUsername());
 
@@ -150,7 +150,7 @@ public class CustomerControllerTest {
     @Test
     public void searchCustomerById() throws URISyntaxException {
         System.out.println("newCustomer.getId()" + newCustomer.get_id());
-        URI uri = new URI(baseUrl + "/search/" + newCustomer.get_id());
+        URI uri = new URI(baseUrl + "/" + newCustomer.get_id());
         HttpEntity<String> request = new HttpEntity<String>(newCustomer.get_id(), headers);
         try {
             ResponseEntity<String> response = restTemplate.postForEntity(uri, request, String.class);
