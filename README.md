@@ -49,6 +49,7 @@ The Customer Microservice REST API is OAuth protected.
 You can view the API by running `appsody run` and visiting http://localhost:8080/swagger-ui.html#/
 
 ## Pre-requisites:
+
 * Create a Kubernetes Cluster by following the steps [here](https://github.com/ibm-cloud-architecture/refarch-cloudnative-kubernetes#create-a-kubernetes-cluster).
 * Install the following CLI's on your laptop/workstation:
     + [`docker`](https://docs.docker.com/install/)
