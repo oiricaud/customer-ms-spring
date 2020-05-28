@@ -261,6 +261,10 @@ In this section you will run the Spring Boot application on your local workstati
 
 Once CouchDB is ready, we can run the Spring Boot Customer application locally as follows:
 
+0. To run the test cases on this application:
+``` bash
+appsody test --docker-options "-e COUCHDB_PORT=5985 -e COUCHDB_HOST=host.docker.internal -e COUCHDB_PROTOCOL=http -e COUCHDB_USERNAME=admin -e COUCHDB_PASSWORD=passw0rd -e COUCHDB_DATABASE=customers -e HS256_KEY=E6526VJkKYhyTFRFMC0pTECpHcZ7TGcq8pKsVVgz9KtESVpheEO284qKzfzg8HpWNBPeHOxNGlyudUHi6i8tFQJXC8PiI48RUpMh23vPDLGD35pCM0417gf58z5xlmRNii56fwRCmIhhV7hDsm3KO2jRv4EBVz7HrYbzFeqI45CaStkMYNipzSm2duuer7zRdMjEKIdqsby0JfpQpykHmC5L6hxkX0BT7XWqztTr6xHCwqst26O0g8r7bXSYjp4a"
+```
 
 1. Build and run the application:
 ```bash
