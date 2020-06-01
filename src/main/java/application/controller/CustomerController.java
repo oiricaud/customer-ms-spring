@@ -142,8 +142,8 @@ public class CustomerController {
      * @return customer by username
      */
     @ApiOperation(value = "Search a customer by username", response = Customer.class)
-    @RequestMapping(path = "/search/{username}", method = RequestMethod.GET)
-    protected ResponseEntity<?> searchCustomerByUsername(@RequestHeader Map<String, String> headers, @PathVariable("username") String username) {
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    protected @ResponseBody ResponseEntity<?> searchCustomerByUsername(@RequestParam String username) {
         System.out.println("searching customer by username " + username);
         try {
             if (username == null) {
@@ -160,7 +160,7 @@ public class CustomerController {
      * @return customer by username
      */
     @ApiOperation(value = "Search a customer by id", response = Customer.class)
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     protected @ResponseBody ResponseEntity<?> searchCustomerById(@PathVariable("id") String id) {
         try {
             if (id == null) {
