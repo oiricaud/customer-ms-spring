@@ -39,8 +39,8 @@ public class CustomerController {
      * check
      */
     @RequestMapping("/check")
-    protected @ResponseBody
-    ResponseEntity<String> check() {
+    @ResponseBody
+    public ResponseEntity<String> check() {
         // test the cloudant connection
         try {
             cloudantProperties.getCloudantDatabase().info();
@@ -58,12 +58,13 @@ public class CustomerController {
      */
     @ApiOperation(value = "Add a customer")
     @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = "application/json")
-    protected ResponseEntity<?> addCustomer(@RequestHeader Map<String, String> headers, @RequestBody Customer payload) {
+    public ResponseEntity<?> addCustomer(@RequestHeader Map<String, String> headers, @RequestBody Customer payload) {
         try {
             // TODO: no one should have access to do this, it's not exposed to APIC
             final Database cloudant = cloudantProperties.getCloudantDatabase();
-
+        
             if (payload.get_id() != null && cloudant.contains(payload.get_id())) {
+                System.out.println("Woot");
                 return ResponseEntity.badRequest().body("Id " + payload.get_id() + " already exists");
             }
 
