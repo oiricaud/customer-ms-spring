@@ -1,38 +1,32 @@
 package application.controller;
 
-import application.model.Customer;
-import junit.framework.Assert;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.net.URISyntaxException;
+import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.*;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import static org.junit.Assert.assertEquals;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.web.server.LocalServerPort;
-import static org.assertj.core.api.Assertions.assertThat;
-import org.springframework.http.HttpStatus;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+
+import application.model.Customer;
+import junit.framework.Assert;
 
 /**
  * The purpose of this class is to test the @see CustomerController class rest end points.
@@ -50,7 +44,7 @@ public class CustomerControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private Customer customer = new Customer("876", null, "yooyo",
+    private Customer customer = new Customer("9876", null, "yooyo",
             "passw0rd", "josh", "hernandez", "helloworld@gmail.com",
             "test.png");
 
