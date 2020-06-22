@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.Random;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -37,14 +38,17 @@ import junit.framework.Assert;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class CustomerControllerTest {
     private HttpHeaders headers = new HttpHeaders();
+    Random rnd = new Random();
+    int number = rnd.nextInt(9999);
 
+    // this will convert any number sequence into 6 character.
     @LocalServerPort
     int randomServerPort;
 
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private Customer customer = new Customer("9876", null, "yooyo",
+    private Customer customer = new Customer(String.format("%06d", number), null, "yooyo",
             "passw0rd", "josh", "hernandez", "helloworld@gmail.com",
             "test.png");
 
