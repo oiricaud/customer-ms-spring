@@ -33,23 +33,10 @@ public class CustomerController {
     final private CustomerRepository customerRepository = new CustomerRepository();
     final private static Logger logger = LoggerFactory.getLogger(CustomerController.class);
     final private CloudantProperties cloudantProperties;
-    
-    @Autowired
-    AboutService aboutService;
 
     public CustomerController(CloudantProperties cloudantProperties) {
         this.cloudantProperties = cloudantProperties;
     }
-    
-    /**
-	 * @return about customer
-	 */
-	@ApiOperation(value = "Manages all customer data")
-	@GetMapping(path = "/about", produces = "application/json")
-	@ResponseBody 
-	public About aboutInventory() {
-		return aboutService.getInfo();
-	}
 
     /**
      * check

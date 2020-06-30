@@ -8,10 +8,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.test.context.ActiveProfiles;
 
 import application.config.CloudantProperties;
-import application.controller.CustomerController;
 import application.model.About;
 import application.repository.AboutService;
-import application.repository.CustomerRepository;
 import au.com.dius.pact.provider.junit.Provider;
 import au.com.dius.pact.provider.junit.State;
 import au.com.dius.pact.provider.junit.loader.PactBroker;
