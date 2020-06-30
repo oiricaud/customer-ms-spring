@@ -1,7 +1,9 @@
 package application.controller;
 
 import application.config.CloudantProperties;
+import application.model.About;
 import application.model.Customer;
+import application.repository.AboutService;
 import application.repository.CustomerRepository;
 import com.cloudant.client.api.Database;
 import com.cloudant.client.api.model.Response;
@@ -13,6 +15,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,10 +33,23 @@ public class CustomerController {
     final private CustomerRepository customerRepository = new CustomerRepository();
     final private static Logger logger = LoggerFactory.getLogger(CustomerController.class);
     final private CloudantProperties cloudantProperties;
+    
+    @Autowired
+    AboutService aboutService;
 
     public CustomerController(CloudantProperties cloudantProperties) {
         this.cloudantProperties = cloudantProperties;
     }
+    
+    /**
+	 * @return about customer
+	 */
+	@ApiOperation(value = "Manages all customer data")
+	@GetMapping(path = "/about", produces = "application/json")
+	@ResponseBody 
+	public About aboutInventory() {
+		return aboutService.getInfo();
+	}
 
     /**
      * check

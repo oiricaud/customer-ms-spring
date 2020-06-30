@@ -10,26 +10,93 @@
     <relativePath/>
   </parent>
 
-  <properties>
-    <java.version>1.8</java.version>
-    <spring-cloud.version>Greenwich.SR5</spring-cloud.version>
-  </properties>
-
+  <groupId>dev.appsody</groupId>
   <artifactId>customer-application</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
+  
+  <properties>
+    <pact.version>4.0.10</pact.version>
+  </properties>
 
   <!-- versions will come from the parent pom (and included bom):
     mvn dependency:tree
     mvn dependency:display-ancestors
     mvn help:effective-pom | grep '\.version>'
     -->
-
-<dependencies>
+    
+  <build>
+  	<pluginManagement>
+	    <plugins>
+	      <!-- <plugin>
+	        <groupId>org.asciidoctor</groupId>
+	        <artifactId>asciidoctor-maven-plugin</artifactId>
+	        <version>1.5.8</version>
+	        <executions>
+	          <execution>
+	            <id>generate-docs</id>
+	            <phase>prepare-package</phase>
+	            <goals>
+	              <goal>process-asciidoc</goal>
+	            </goals>
+	            <configuration>
+	              <backend>html</backend>
+	              <doctype>book</doctype>
+	            </configuration>
+	          </execution>
+	        </executions>
+	      </plugin> -->
+	      <plugin>
+	      	<groupId>org.sonarsource.scanner.maven</groupId>
+	      	<artifactId>sonar-maven-plugin</artifactId>
+	      	<version>3.4.0.905</version>
+	      </plugin>
+	      <plugin>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-maven-plugin</artifactId>
+	      </plugin>
+	      <plugin>
+	      	<groupId>au.com.dius</groupId>
+	        <artifactId>pact-jvm-provider-maven</artifactId>
+	        <version>${pact.version}</version>
+	        <configuration>
+	        	<pactBrokerUrl>${pact.broker.url}</pactBrokerUrl>
+	        	<pactDirectory>target/pacts</pactDirectory>
+	        </configuration>
+	      </plugin>
+		  <!-- Plugin to run unit tests -->
+		  <plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-surefire-plugin</artifactId>
+	        <executions>
+	            <execution>
+	            	<phase>test</phase>
+	            	<id>default-test</id>
+	            	<configuration>
+	            		<!-- <excludes>
+	            			<exclude>**/pact/**</exclude>
+	            		</excludes> -->
+	            		<excludes>
+	            			<exclude>**/*ConsumerTest.java</exclude>
+	            			<exclude>**/*ProviderTest.java</exclude>
+	            		</excludes> 
+	            	</configuration>
+	            </execution>
+	        </executions>
+	       </plugin>
+    	</plugins>
+    </pluginManagement>
+  </build>
+    
+  <dependencies>
+    <!-- From parent:
+      org.springframework.boot:spring-boot-starter
+      org.springframework.boot:spring-boot-starter-actuator
+      org.springframework.boot:spring-boot-starter-test
+     -->
     <dependency>
         <groupId>org.springframework.security</groupId>
         <artifactId>spring-security-web</artifactId>
-        <version>5.1.1.RELEASE</version>
     </dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -48,7 +115,6 @@
     <dependency>
         <groupId>org.springframework.security</groupId>
         <artifactId>spring-security-config</artifactId>
-        <version>5.1.1.RELEASE</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -76,6 +142,11 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
+   	  <artifactId>spring-boot-starter-test</artifactId>
+   	  <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-tomcat</artifactId>
     </dependency>
     <dependency>
@@ -88,48 +159,81 @@
         <artifactId>springfox-swagger-ui</artifactId>
         <version>2.8.0</version>
     </dependency>
-</dependencies>
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-dependencies</artifactId>
-        <version>${spring-cloud.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+    <dependency>
+		<groupId>au.com.dius</groupId>
+		<artifactId>pact-jvm-consumer-junit</artifactId>
+		<version>${pact.version}</version>
+	</dependency>
+	<dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-stdlib</artifactId>
+        <version>1.3.60</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>au.com.dius</groupId>
+    	<artifactId>pact-jvm-provider-junit</artifactId>
+    	<version>${pact.version}</version>
+    	<scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>au.com.dius</groupId>
+    	<artifactId>pact-jvm-provider-spring</artifactId>
+    	<version>${pact.version}</version>
+    	<scope>test</scope>
+    </dependency>
+  </dependencies>
   
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.asciidoctor</groupId>
-        <artifactId>asciidoctor-maven-plugin</artifactId>
-        <version>1.5.8</version>
-        <executions>
-          <execution>
-            <id>generate-docs</id>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>process-asciidoc</goal>
-            </goals>
-            <configuration>
-              <backend>html</backend>
-              <doctype>book</doctype>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-      	<groupId>org.sonarsource.scanner.maven</groupId>
-      	<artifactId>sonar-maven-plugin</artifactId>
-      	<version>3.4.0.905</version>
-      </plugin>
-    </plugins>
-  </build>
+  <profiles>
+        <profile>
+            <id>pact-consumer</id>
+            <build>
+		    <pluginManagement>
+		        <plugins>
+		            <!-- Plugin to run pact consumer tests -->
+		            <plugin>
+		                <groupId>org.apache.maven.plugins</groupId>
+		                <artifactId>maven-surefire-plugin</artifactId>
+		                <executions>
+		                    <execution>
+		                        <phase>test</phase>
+		                        <id>default-test</id>
+		                        <configuration>
+		                            <excludes combine.self="override">
+		                            	<exclude>**/*ProviderTest.java</exclude>
+		                            </excludes>
+		                        </configuration>
+		                    </execution>
+		                </executions>
+		            </plugin>
+		        </plugins>
+		    </pluginManagement>
+		  </build>
+        </profile>
+        <profile>
+            <id>pact-producer</id>
+            <build>
+		    <pluginManagement>
+		        <plugins>
+		            <!-- Plugin to run unit tests -->
+		            <plugin>
+		                <groupId>org.apache.maven.plugins</groupId>
+		                <artifactId>maven-surefire-plugin</artifactId>
+		                <executions>
+		                    <execution>
+		                        <phase>test</phase>
+		                        <id>default-test</id>
+		                        <configuration>
+		                            <excludes combine.self="override">
+		                            	<exclude>**/*ConsumerTest.java</exclude>
+		                            </excludes>
+		                        </configuration>
+		                    </execution>
+		                </executions>
+		            </plugin>
+		        </plugins>
+		    </pluginManagement>
+		  </build>
+        </profile>
+    </profiles>
 </project>
