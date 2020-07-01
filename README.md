@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/ibm-cloud-architecture/refarch-cloudnative-micro-customer.svg?branch=master)](https://travis-ci.org/ibm-cloud-architecture/refarch-cloudnative-micro-customer)
 
 *This project is part of the `IBM Cloud Native Reference Architecture` suite, available at
-https://github.com/ibm-cloud-architecture/refarch-cloudnative-kubernetes/tree/spring*
+https://cloudnativereference.dev/*
 
 ## Table of Contents
   * [Introduction](#introduction)
