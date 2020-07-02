@@ -326,7 +326,7 @@ Now you can access the pact broker to see if the tests are successful at http://
 ## Conclusion
 You have successfully deployed and tested the Customer Microservice and a CouchDB database both on a Kubernetes Cluster and in local Docker Containers.
 
-To see the Customer app working in a more complex microservices use case, checkout our Microservice Reference Architecture Application [here](https://github.com/ibm-cloud-architecture/refarch-cloudnative-kubernetes/tree/spring).
+To see the Customer app working in a more complex microservices use case, checkout our Microservice Reference Architecture Application [here](https://github.com/ibm-garage-ref-storefront/docs).
 
 ## Contributing
 If you would like to contribute to this repository, please fork it, submit a PR, and assign as reviewers any of the GitHub users listed here:
