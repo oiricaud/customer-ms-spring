@@ -62,6 +62,7 @@ public class CustomerController {
     @ApiOperation(value = "Add a customer")
     @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<?> addCustomer(@RequestHeader Map<String, String> headers, @RequestBody Customer payload) {
+        System.out.println("this is being run");
         try {
             // TODO: no one should have access to do this, it's not exposed to APIC
             final Database cloudant = cloudantProperties.getCloudantDatabase();
