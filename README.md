@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/ibm-cloud-architecture/refarch-cloudnative-micro-customer.svg?branch=master)](https://travis-ci.org/ibm-cloud-architecture/refarch-cloudnative-micro-customer)
 
 *This project is part of the `IBM Cloud Native Reference Architecture` suite, available at
-https://github.com/ibm-cloud-architecture/refarch-cloudnative-kubernetes/tree/spring*
+https://cloudnativereference.dev/*
 
 ## Table of Contents
   * [Introduction](#introduction)
@@ -13,7 +13,7 @@ https://github.com/ibm-cloud-architecture/refarch-cloudnative-kubernetes/tree/sp
       - [1. Create a temporary HS256 shared secret](#1-create-a-temporary-hs256-shared-secret)
       - [2. Generate a JWT Token with `admin` Scope](#2-generate-a-jwt-token-with-admin-scope)
       - [3. Generate a JWT Token with `admin` Scope](#3-generate-a-jwt-token-with-admin-scope)
-      c. 
+      c.
     + [Create a Customer](#create-a-customer)
     + [Search the Customer](#search-the-customer)
     + [Get the Customer](#get-the-customer)
@@ -40,7 +40,7 @@ Here is an overview of the project's features:
 - Uses [`CouchDB`](http://couchdb.apache.org/) as the customer database.
 - Uses [`Docker`](https://docs.docker.com/) to package application binary and its dependencies.
 
-        
+
 ## APIs
 The Customer Microservice REST API is OAuth protected.
 
@@ -55,7 +55,7 @@ You can view the API by running `appsody run` and visiting http://localhost:8080
     + [`docker`](https://docs.docker.com/install/)
     + [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
     + [`appsody`](https://appsody.dev/docs/installing/installing-appsody/)
-    
+
 * Clone customer repository:
 ```bash
 git clone https://github.com/ibm-garage-ref-storefront/customer-ms-spring
@@ -102,7 +102,7 @@ cat /dev/urandom | env LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 256 | head -n 1 |
 
 Note that if the [Authorization Server](https://github.com/ibm-cloud-architecture/refarch-cloudnative-auth) is also deployed, it must use the *same* HS256 shared secret.
 
-#### c. Compile and test the java application 
+#### c. Compile and test the java application
 You can run the application with appsody such as
 `appsody run`
 `appsody test`
@@ -243,13 +243,13 @@ docker inspect customercouchdb | grep "IPAddress"
 ```
 Make sure to select the IP Address in the `IPAddress` field. You will use this IP address when deploying the Customer container.
 
-    
+
 ### Deploy the Customer backend to Openshift
 
     docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
     oc login --token=$YOUR_API_TOKEN --server=$CLUSTER_IP_ADDRESS
     oc new-project=customer-api
-    appsody deploy -t $DOCKER_REGISTRY/$DOCKER_REPO:$VERSION --push --namespace customer-api 
+    appsody deploy -t $DOCKER_REGISTRY/$DOCKER_REPO:$VERSION --push --namespace customer-api
 
 Where `${COUCHDB_IP_ADDRESS}` is the IP address of the CouchDB container, which is only accessible from the Docker container network.
 
@@ -280,11 +280,54 @@ http://localhost:8080/swagger-ui.html#/
 
 That's it, you have successfully deployed and tested the Customer microservice.
 
+- We also enabled sonarqube as part of the application.
+
+To run the sonarqube as a docker container, run the below command.
+
+```
+docker run -d --name sonarqube -p 9000:9000 sonarqube
+```
+
+To test the application, run the below command.
+
+```
+./mvnw sonar:sonar -Dsonar.login=admin -Dsonar.password=admin
+```
+
+Now, access `http://localhost:9000/`, login using the credentials `admin/admin`, and then you will see something like below.
+
+![Customer SonarQube](static/customer_sonarqube.png?raw=true)
+
+- We included contract testing as part of our application too.
+
+To run Pact as a docker container, run the below command.
+
+```
+cd pact_docker/
+docker-compose up -d
+```
+
+To publish the pacts to pacts broker, run the below command.
+
+```
+./mvnw clean install pact:publish -Dpact.broker.url=http://localhost:8500 -Ppact-consumer
+```
+
+To verify the results, run the below command.
+
+```
+ ./mvnw test -Dpact.verifier.publishResults='true' -Dpactbroker.host=localhost -Dpactbroker.port=8500 -Ppact-producer
+```
+
+Now you can access the pact broker to see if the tests are successful at http://localhost:8500/.
+
+![Customer Pact Broker](static/customer_pactbroker.png?raw=true)
+
 ## Conclusion
 You have successfully deployed and tested the Customer Microservice and a CouchDB database both on a Kubernetes Cluster and in local Docker Containers.
 
-To see the Customer app working in a more complex microservices use case, checkout our Microservice Reference Architecture Application [here](https://github.com/ibm-cloud-architecture/refarch-cloudnative-kubernetes/tree/spring).
+To see the Customer app working in a more complex microservices use case, checkout our Microservice Reference Architecture Application [here](https://github.com/ibm-garage-ref-storefront/docs).
 
 ## Contributing
-If you would like to contribute to this repository, please fork it, submit a PR, and assign as reviewers any of the GitHub users listed here:
-git clone https://github.com/ibm-garage-ref-storefront/customer-ms-spring
+
+If you would like to contribute to this repository, please fork it, submit a PR, and assign as reviewers any of the GitHub users listed [here](https://github.com/ibm-garage-ref-storefront/customer-ms-spring)

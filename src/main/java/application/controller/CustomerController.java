@@ -1,7 +1,9 @@
 package application.controller;
 
 import application.config.CloudantProperties;
+import application.model.About;
 import application.model.Customer;
+import application.repository.AboutService;
 import application.repository.CustomerRepository;
 import com.cloudant.client.api.Database;
 import com.cloudant.client.api.model.Response;
@@ -13,6 +15,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -59,6 +62,7 @@ public class CustomerController {
     @ApiOperation(value = "Add a customer")
     @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<?> addCustomer(@RequestHeader Map<String, String> headers, @RequestBody Customer payload) {
+        System.out.println("this is being run");
         try {
             // TODO: no one should have access to do this, it's not exposed to APIC
             final Database cloudant = cloudantProperties.getCloudantDatabase();
@@ -180,7 +184,7 @@ public class CustomerController {
      * @return transaction status
      */
     @ApiOperation(value = "Delete a customer by id")
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     protected ResponseEntity<?> deleteCustomerById(@PathVariable String id) {
         // TODO: no one should have access to do this, it's not exposed to APIC
         try {
