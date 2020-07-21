@@ -214,7 +214,7 @@ public class CustomerController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     }
     )
-    @RequestMapping(value ="/", method = RequestMethod.GET)
+    @RequestMapping(value ="/list", method = RequestMethod.GET)
     protected ResponseEntity<?> getAllCustomers() {
         return ResponseEntity.ok(customerRepository.getCustomers(cloudantProperties.getCloudantDatabase()));
     }
