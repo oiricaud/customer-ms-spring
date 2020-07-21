@@ -183,7 +183,7 @@ public class CustomerController {
      * @return transaction status
      */
     @ApiOperation(value = "Delete a customer by id")
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     protected ResponseEntity<?> deleteCustomerById(@PathVariable String id) {
         // TODO: no one should have access to do this, it's not exposed to APIC
         try {
