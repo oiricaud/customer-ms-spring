@@ -142,23 +142,23 @@ public class CustomerController {
         return ResponseEntity.ok().build();
     }
 
-    /**
-     * @return customer by username
-     */
-    @ApiOperation(value = "Search a customer by username", response = Customer.class)
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    protected @ResponseBody ResponseEntity<?> searchCustomerByUsername(@RequestParam String username) {
-        System.out.println("searching customer by username " + username);
-        try {
-            if (username == null) {
-                return ResponseEntity.badRequest().body("Missing username");
-            }
-            return ResponseEntity.ok(customerRepository.getCustomerByUsername(cloudantProperties.getCloudantDatabase(), username).get(0));
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
+//    /**
+//     * @return customer by username
+//     */
+//    @ApiOperation(value = "Search a customer by username", response = Customer.class)
+//    @RequestMapping(value = "/search", method = RequestMethod.GET)
+//    protected @ResponseBody ResponseEntity<?> searchCustomerByUsername(@RequestParam String username) {
+//        System.out.println("searching customer by username " + username);
+//        try {
+//            if (username == null) {
+//                return ResponseEntity.badRequest().body("Missing username");
+//            }
+//            return ResponseEntity.ok(customerRepository.getCustomerByUsername(cloudantProperties.getCloudantDatabase(), username).get(0));
+//        } catch (Exception e) {
+//            logger.error(e.getMessage(), e);
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
+//    }
 
     /**
      * @return customer by username
