@@ -15,9 +15,9 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
@@ -68,11 +68,10 @@ public class CustomerController {
             final Database cloudant = cloudantProperties.getCloudantDatabase();
         
             if (payload.get_id() != null && cloudant.contains(payload.get_id())) {
-                System.out.println("Woot");
                 return ResponseEntity.badRequest().body("Id " + payload.get_id() + " already exists");
             }
 
-            String customer = customerRepository.getCustomerByUsername(cloudantProperties.getCloudantDatabase(), payload.getUsername());
+            String customer = customerRepository.getCustomerByUsername(cloudantProperties.getCloudantDatabase(), payload.getUsername()).toString();
             if (Strings.isNullOrEmpty(customer)) {
                 return ResponseEntity.badRequest().body("Customer with name " + payload.getUsername() + " already exists");
             }
@@ -154,13 +153,31 @@ public class CustomerController {
             if (username == null) {
                 return ResponseEntity.badRequest().body("Missing username");
             }
-            return ResponseEntity.ok(customerRepository.getCustomerByUsername(cloudantProperties.getCloudantDatabase(), username));
+            return ResponseEntity.ok(customerRepository.getCustomerByUsername(cloudantProperties.getCloudantDatabase(), username).get(0));
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
+    /**
+     * @return customer by username
+     */
+    @PreAuthorize("#oauth2.hasScope('admin')")
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    protected @ResponseBody ResponseEntity<?> searchCustomers(@RequestHeader Map<String, String> headers, @RequestParam(required=true) String username) {
+        try {
+            if (username == null) {
+                return ResponseEntity.badRequest().body("Missing username");
+            }
+            Customer customer = customerRepository.getCustomerByUsername(cloudantProperties.getCloudantDatabase(), username).get(0);
+            return ResponseEntity.ok(customer);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
     /**
      * @return customer by username
      */

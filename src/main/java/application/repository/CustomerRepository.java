@@ -23,12 +23,12 @@ public class CustomerRepository {
         return customers.getDocs();
     }
 
-    public String getCustomerByUsername(Database database, String username) {
+    public List<Customer> getCustomerByUsername(Database database, String username) {
         String query = "{ \"selector\": { \"username\": \"" + username + "\" } }";
         System.out.println("username " + username + "  temp " + database);
         final QueryResult<Customer> customers = database.query(query, Customer.class);
         System.out.println("customers.toString" + customers.getDocs().toString());
-        return customers.getDocs().toString();
+        return customers.getDocs();
     }
 
     public String getCustomerById(Database database, String id) {
