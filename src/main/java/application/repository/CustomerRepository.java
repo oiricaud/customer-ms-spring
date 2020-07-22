@@ -3,10 +3,12 @@ package application.repository;
 import application.model.Customer;
 import com.cloudant.client.api.Database;
 import com.cloudant.client.api.query.QueryResult;
+
 import java.util.List;
 
 /**
  * Class is responsible for handling queries requests
+ *
  * @author Oscar.Ricaud@ibm.com
  */
 public class CustomerRepository {
